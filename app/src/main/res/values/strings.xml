@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PixaBay Images</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_title">Search Image</string>
+    <string name="something_went_wrong_msg">Something went wrong! Please check your connection</string>
+    <string name="no_result">No Results</string>
+    <string name="image">Image</string>
+    <string name="done">Done</string>
+    <string name="default_query">fruits</string>
+    <string name="Retry">Retry</string>
+    <string name="confirm_title">Alert</string>
+    <string name="confirm_msg">Do you really want to see a full image?</string>
+    <string name="proceed">Proceed</string>
+    <string name="cancel">Cancel</string>
+</resources>

@@ -1,0 +1,99 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdk Versions.COMPILE_SDK
+
+    defaultConfig {
+        applicationId "com.example.paybackcodingtask"
+        minSdk Versions.MIN_SDK
+        targetSdk Versions.TARGET_SDK
+        versionCode Versions.VERSION_CODE
+        versionName Versions.VERSION_NAME
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_API_URL", "\"${Config.STAGING_API_BASE_URL}\""
+            buildConfigField "String", "API_KEY", "\"${Config.STAGING_API_KEY}\""
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_API_URL", "\"${Config.PROD_API_BASE_URL}\""
+            buildConfigField "String", "API_KEY", "\"${Config.PROD_API_KEY}\""
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
+    }
+    hilt {
+        enableAggregatingTask = true
+    }
+    buildFeatures {
+        dataBinding = true
+    }
+}
+
+dependencies {
+
+    //Android
+    implementation(Libs.STDLIB)
+    implementation(Libs.APP_COMPAT)
+    implementation(Libs.CONSTRAINT_LAYOUT)
+    implementation(Libs.DESIGN)
+    implementation(Libs.SSP) // For multi screens
+    implementation(Libs.SDP)
+
+    //Network
+    implementation(Libs.RETROFIT)
+    implementation(Libs.OKHTTP_LOGGING)
+    implementation(Libs.MOSHI_KOTLIN)
+    implementation(Libs.MOSHI_CONVERTER)
+    kapt(Libs.MOSHI_KOTLIN_CODE_GEN)
+
+    implementation project(path: ':domain')
+    implementation project(path: ':core')
+    implementation project(path: ':data')
+
+    // Jetpack
+    implementation(Libs.LIFECYCLE_VIEWMODEL_KTX)
+    implementation(Libs.LIFECYCLE_LIVEDATA_KTX)
+    implementation(Libs.PAGING)
+    implementation(Libs.NAV_UI_KTX)
+    implementation(Libs.NAV_FRAGMENT_KTX)
+    implementation(Libs.COROUTINE_CORE)
+
+    //dagger hilt
+    implementation(Libs.HILT)
+    kapt(Libs.HILT_ANDROID)
+    kapt(Libs.HILT_COMPILER)
+    implementation(Libs.HILT_ANDROID_COMPILER)
+    implementation(Libs.HILT_VIEW_MODEL)
+
+    //Testing
+    testImplementation(Libs.JUNIT)
+    androidTestImplementation(Libs.JUNIT_EXT)
+    androidTestImplementation(Libs.CORE_TESTING)
+    testImplementation(Libs.COROUTINE_TESTING)
+    testImplementation(Libs.MOCKK)
+    testImplementation(Libs.ARCH_CORE_TESTING)
+    androidTestImplementation(Libs.ESPRESSO_CORE)
+    androidTestImplementation(Libs.ESPRESSO_CONTRIB)
+    androidTestImplementation(Libs.ANDROID_TEST_RUNNER)
+}

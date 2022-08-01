@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdk Versions.COMPILE_SDK
+
+    defaultConfig {
+        minSdk Versions.MIN_SDK
+        targetSdk Versions.TARGET_SDK
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    //dagger hilt
+    implementation(Libs.HILT)
+    kapt(Libs.HILT_ANDROID)
+    kapt(Libs.HILT_COMPILER)
+    implementation(Libs.HILT_ANDROID_COMPILER)
+
+    // Jetpack
+    implementation(Libs.PAGING)
+    implementation(Libs.COROUTINE_CORE)
+
+    //Testing
+    testImplementation(Libs.JUNIT)
+    androidTestImplementation(Libs.JUNIT_EXT)
+    androidTestImplementation(Libs.CORE_TESTING)
+    testImplementation(Libs.COROUTINE_TESTING)
+    testImplementation(Libs.MOCKK)
+    testImplementation(Libs.ARCH_CORE_TESTING)
+    androidTestImplementation(Libs.ESPRESSO_CORE)
+    androidTestImplementation(Libs.ESPRESSO_CONTRIB)
+    androidTestImplementation(Libs.ANDROID_TEST_RUNNER)
+}
