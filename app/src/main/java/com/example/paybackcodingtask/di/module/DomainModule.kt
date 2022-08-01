@@ -14,6 +14,6 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideLogInUseCase(imagesRepository: ImagesRepository) =
+    fun provideGetImageUseCase(imagesRepository: ImagesRepository) =
         GetImagesUseCase(imagesRepository)
 }
